@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -84,7 +85,7 @@ android {
         debug {
             debuggable true
             minifyEnabled false
-         //   signingConfig signingConfigs.debug
+            signingConfig signingConfigs.debug
         }
 
     }
@@ -318,6 +319,7 @@ if (buildWithTinker()) {
  */
 //
 //    tasks.getByName("assemble${taskName.capitalize()}") {
+//
 //        it.doLast {
 //            copy {
 //                def date = new Date().format("MMdd-HH-mm-ss")
