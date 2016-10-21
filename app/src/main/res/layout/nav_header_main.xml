@@ -12,7 +12,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <org.xiangbalao.widget.CircularImage
+    <org.xiangbalao.tinkerdemo.widget.CircularImage
         android:id="@+id/imageView"
         android:layout_width="60dip"
         android:layout_height="60dip"

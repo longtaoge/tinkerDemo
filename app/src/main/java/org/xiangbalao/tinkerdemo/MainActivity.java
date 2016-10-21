@@ -1,6 +1,8 @@
 package org.xiangbalao.tinkerdemo;
 
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -12,6 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
+
+import com.tencent.tinker.lib.tinker.Tinker;
+import com.tencent.tinker.lib.tinker.TinkerInstaller;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,7 +38,6 @@ public class MainActivity extends AppCompatActivity
     private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
 
         contentMain = (RelativeLayout) findViewById(R.id.content_main);
@@ -78,13 +82,19 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_loadPatch) {
-
+            TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), Environment.getExternalStorageDirectory().getAbsolutePath() + "/patch_signed_7zip.apk");
 
         } else if (id == R.id.nav_loadLibrary) {
+            TinkerInstaller.loadLibraryFromTinker(getApplicationContext(),"armeabi","libstlport_shared");
 
         } else if (id == R.id.nav_cleanPatch) {
+            Tinker.with(getApplicationContext()).cleanPatch();
 
         } else if (id == R.id.nav_killSelf) {
+
+            android.os.Process.killProcess(android.os.Process.myPid());
+
+            System.exit(0);
 
         } else if (id == R.id.nav_info) {
 
