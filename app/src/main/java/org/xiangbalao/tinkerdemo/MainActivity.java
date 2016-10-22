@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity
             //加载补丁
             TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), Environment.getExternalStorageDirectory().getAbsolutePath() + "/patch_signed_7zip.apk");
 
+
         } else if (id == R.id.nav_loadLibrary) {
             //加载 SO
             TinkerInstaller.loadLibraryFromTinker(getApplicationContext(), "armeabi", "libstlport_shared");
