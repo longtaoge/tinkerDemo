@@ -20,8 +20,8 @@
             android:title="重启应用" />
         <item
             android:id="@+id/nav_info"
-            android:icon="@drawable/ic_menu_send"
-            android:title="显示信息" />
+            android:icon="@drawable/ic_camera_black_24dp"
+            android:title="关于tinker" />
 
 
     </group>
@@ -33,9 +33,9 @@
                 android:icon="@drawable/ic_menu_share"
                 android:title="分享" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_about"
                 android:icon="@drawable/ic_menu_send"
-                android:title="发送" />
+                android:title="查看源码" />
 
         </menu>
     </item>

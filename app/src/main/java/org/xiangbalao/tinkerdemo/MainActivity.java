@@ -1,8 +1,9 @@
 package org.xiangbalao.tinkerdemo;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -82,25 +83,34 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_loadPatch) {
+            //加载补丁
             TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), Environment.getExternalStorageDirectory().getAbsolutePath() + "/patch_signed_7zip.apk");
 
         } else if (id == R.id.nav_loadLibrary) {
-            TinkerInstaller.loadLibraryFromTinker(getApplicationContext(),"armeabi","libstlport_shared");
+            //加载 SO
+            TinkerInstaller.loadLibraryFromTinker(getApplicationContext(), "armeabi", "libstlport_shared");
 
         } else if (id == R.id.nav_cleanPatch) {
+            //清除补丁
             Tinker.with(getApplicationContext()).cleanPatch();
 
         } else if (id == R.id.nav_killSelf) {
-
+            //重启应用
             android.os.Process.killProcess(android.os.Process.myPid());
-
             System.exit(0);
 
         } else if (id == R.id.nav_info) {
 
-        } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+            openBrowser(getString(R.string.tinker));
+
+
+        } else if (id == R.id.nav_share) {
+            //分享
+            shareMsg(getString(R.string.hotfix), getString(R.string.tinkerdome), getString(R.string.share));
+
+        } else if (id == R.id.nav_about) {
+            openBrowser(getString(R.string.about));
 
         }
 
@@ -108,4 +118,23 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+    public void shareMsg(String activityTitle, String msgTitle, String msgText) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, msgTitle);
+        intent.putExtra(Intent.EXTRA_TEXT, msgText);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(Intent.createChooser(intent, activityTitle));
+    }
+
+
+    private void openBrowser(String url) {
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
+
+
 }
