@@ -23,7 +23,7 @@ import org.xiangbalao.tinkerdemo.tinker.utils.TinkerManager;
  */
 
 
-@DefaultLifeCycle(application = "org.xiangbalao.tinkerdemo.app.MyApplication1",
+@DefaultLifeCycle(application = "org.xiangbalao.tinkerdemo.app.MyApplication",
         flags = ShareConstants.TINKER_ENABLE_ALL,
         loadVerifyFlag = false)
 public class ApplicationLike extends DefaultApplicationLike {
