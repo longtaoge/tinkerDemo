@@ -1,7 +1,7 @@
 # tinkerDemo
 本项目是 tinker 热补丁修复 示例
 
-本例完全参照 ![](https://github.com/Tencent/tinker/wiki/Tinker-%E6%8E%A5%E5%85%A5%E6%8C%87%E5%8D%97)
+本例完全参照 ![https://github.com/Tencent/tinker/wiki/Tinker](https://github.com/Tencent/tinker/wiki/Tinker-%E6%8E%A5%E5%85%A5%E6%8C%87%E5%8D%97)
 
 是tinker 初学者的练习参考项目
 
@@ -10,6 +10,10 @@
 
 
 ### 1 调用assembleDebug编译，我们会将编译过的包保存在build/bakApk中。然后我们将它安装到手机，我们发现APP出现了BUG,公鸡下面的名字写成了孔雀 点击红色按钮，可以看到补丁并没有加载.
+
+
+![](https://github.com/longtaoge/tinkerDemo/blob/master/app/src/main/res/drawable/tinker11.png)
+
 
 
 ![](https://github.com/longtaoge/tinkerDemo/blob/master/app/src/main/res/drawable/tinker6.jpg)
