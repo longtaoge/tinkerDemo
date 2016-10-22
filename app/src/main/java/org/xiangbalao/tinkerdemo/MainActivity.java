@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -42,6 +41,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+
+        // 修复BUG
+        //  contentMain.setBackgroundResource(R.mipmap.rooster);
+
     }
 
 
@@ -63,7 +66,7 @@ public class MainActivity extends AppCompatActivity
 
                 showInfo(MainActivity.this);
 
-                contentMain.setBackgroundResource(R.mipmap.rooster);
+
             }
         });
 
@@ -151,6 +154,7 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * 显示信息
+     *
      * @param context
      * @return
      */
