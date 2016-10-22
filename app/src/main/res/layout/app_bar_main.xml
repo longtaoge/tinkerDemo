@@ -25,10 +25,13 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dip"
+        android:layout_height="60dip"
         android:layout_gravity="bottom|end"
+        app:backgroundTint="@color/colorAccent"
+        app:fabSize="normal"
+        app:borderWidth="0dp"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@drawable/ic_remove_red_eye_white_48dp" />
 
 </android.support.design.widget.CoordinatorLayout>
