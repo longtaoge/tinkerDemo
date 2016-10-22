@@ -1,6 +1,9 @@
 package org.xiangbalao.tinkerdemo;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,12 +15,21 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.tencent.tinker.lib.tinker.Tinker;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
+import com.tencent.tinker.loader.shareutil.ShareConstants;
+import com.tencent.tinker.loader.shareutil.ShareTinkerInternals;
+
+import org.xiangbalao.tinkerdemo.tinker.constant.BaseBuildInfo;
+import org.xiangbalao.tinkerdemo.tinker.constant.BuildInfo;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -48,8 +60,8 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                showInfo(MainActivity.this);
 
                 contentMain.setBackgroundResource(R.mipmap.rooster);
             }
@@ -134,6 +146,51 @@ public class MainActivity extends AppCompatActivity
         Uri uri = Uri.parse(url);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
+    }
+
+
+    /**
+     * 显示信息
+     * @param context
+     * @return
+     */
+    public boolean showInfo(Context context) {
+        // add more Build Info
+        final StringBuilder sb = new StringBuilder();
+        Tinker tinker = Tinker.with(getApplicationContext());
+        if (tinker.isTinkerLoaded()) {
+            sb.append(String.format("[补丁已加载] \n"));
+            sb.append(String.format("[编译版本号] %s \n", BuildInfo.CLIENTVERSION));
+            sb.append(String.format("[编译 信息] %s \n", BuildInfo.MESSAGE));
+            sb.append(String.format("[TINKER_ID] %s \n", tinker.getTinkerLoadResultIfPresent().getPackageConfigByName(ShareConstants.TINKER_ID)));
+            sb.append(String.format("[REAL TINKER_ID] %s \n", tinker.getTinkerLoadResultIfPresent().getTinkerID()));
+            sb.append(String.format("[包配置的补丁信息] %s \n", tinker.getTinkerLoadResultIfPresent().getPackageConfigByName("patchMessage")));
+            sb.append(String.format("[TINKER_ID Rom Space] %d k \n", tinker.getTinkerRomSpace()));
+
+        } else {
+            sb.append(String.format("[补丁未加载] \n"));
+            sb.append(String.format("[编译版本号] %s \n", BuildInfo.CLIENTVERSION));
+            sb.append(String.format("[编译信息] %s \n", BuildInfo.MESSAGE));
+            sb.append(String.format("[TINKER_ID] %s \n", ShareTinkerInternals.getManifestTinkerID(getApplicationContext())));
+        }
+        sb.append(String.format("[提示信息] %s \n", BaseBuildInfo.TEST_MESSAGE));
+
+        final TextView v = new TextView(context);
+        v.setText(sb);
+        v.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+        v.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
+        v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        v.setTextColor(0xFF000000);
+        v.setTypeface(Typeface.MONOSPACE);
+        final int padding = 16;
+        v.setPadding(padding, padding, padding, padding);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(true);
+        builder.setView(v);
+        final AlertDialog alert = builder.create();
+        alert.show();
+        return true;
     }
 
 
