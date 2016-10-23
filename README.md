@@ -37,9 +37,18 @@
     adb push ./app/build/outputs/tinkerPatch/debug/patch_signed_7zip.apk /storage/sdcard0/
 
 
+![](https://github.com/longtaoge/tinkerDemo/blob/master/app/src/main/res/drawable/tinker4_1.png)
+
+![](https://github.com/longtaoge/tinkerDemo/blob/master/app/src/main/res/drawable/tinker4_2.png)
+
+
+
+
 ### 4 点击加载补丁菜单, 如果看到patch success, please restart process的toast，即可锁屏或者点击重启按钮 
 
 ![](https://github.com/longtaoge/tinkerDemo/blob/master/app/src/main/res/drawable/tinker3.jpg)
+
+![](https://github.com/longtaoge/tinkerDemo/blob/master/app/src/main/res/drawable/tinker31.jpg)
 
 
 
