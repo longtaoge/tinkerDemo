@@ -14,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -29,6 +30,7 @@ import com.tencent.tinker.loader.shareutil.ShareTinkerInternals;
 
 import org.xiangbalao.tinkerdemo.tinker.constant.BaseBuildInfo;
 import org.xiangbalao.tinkerdemo.tinker.constant.BuildInfo;
+import org.xiangbalao.tinkerdemo.tinker.utils.Utils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -199,4 +201,19 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+
+    @Override
+    protected void onResume() {
+
+
+        super.onResume();
+        Utils.setBackground(false);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Utils.setBackground(true);
+    }
 }

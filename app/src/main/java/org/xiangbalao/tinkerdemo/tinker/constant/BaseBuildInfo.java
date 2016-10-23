@@ -6,5 +6,5 @@ package org.xiangbalao.tinkerdemo.tinker.constant;
 
 public class BaseBuildInfo {
 
-    public static String TEST_MESSAGE = "使用tinker为修复安卓软件小问题!(本信息不会被修改!)";
+    public static String TEST_MESSAGE = "使用tinker为修复安卓软件小问题!(本条提示不会被修改!)";
 }
