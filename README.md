@@ -1,7 +1,7 @@
 # tinkerDemo
 本项目是 tinker 热补丁修复 示例
 
-本例完全参照 ![https://github.com/Tencent/tinker/wiki/Tinker](https://github.com/Tencent/tinker/wiki/Tinker-%E6%8E%A5%E5%85%A5%E6%8C%87%E5%8D%97)
+本例完全参照 [https://github.com/Tencent/tinker/wiki/Tinker](https://github.com/Tencent/tinker/wiki/Tinker-%E6%8E%A5%E5%85%A5%E6%8C%87%E5%8D%97)
 
 是tinker 初学者的练习参考项目
 
