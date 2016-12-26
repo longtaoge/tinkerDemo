@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         initView();
         // 修复BUG
-        //  contentMain.setBackgroundResource(R.mipmap.rooster);
+          contentMain.setBackgroundResource(R.mipmap.rooster);
 
         initHotfix();
     }
@@ -76,7 +76,9 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drawer.openDrawer(GravityCompat.START);
+              //  drawer.openDrawer(GravityCompat.START);
+
+                BaseBug.test(MainActivity.this);
 
             }
         });
