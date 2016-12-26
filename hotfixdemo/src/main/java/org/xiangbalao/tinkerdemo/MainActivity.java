@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_loadPatch) {
             //加载补丁
-
+            HotFixManager.getInstance().queryNewHotPatch();
         } else if (id == R.id.nav_loadLibrary) {
             //加载 SO
 
