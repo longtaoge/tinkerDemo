@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">HotfixDemo</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="about">https://github.com/longtaoge/tinkerDemo</string>
+    <string name="share">快速学习淘宝热修复框架百川Hotfix : https://github.com/longtaoge/tinkerDemo</string>
+    <string name="tinkerdome">Hotfixr示例</string>
+    <string name="hotfix">热修复</string>
+    <string name="tinker">https://github.com/Tencent/tinker</string>
+</resources>
