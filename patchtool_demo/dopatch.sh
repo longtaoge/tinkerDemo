@@ -6,3 +6,6 @@ adb push /Users/wuer/Projects/alibaba/hotfix/hotfix-android/hotfix_demo/patchtoo
 
 
  java -jar BCFixPatchTools-1.3.0.jar -c patch -s /Users/longtaoge/Downloads/hotfix_demo/patchtool_demo/hotfix_demo-old.apk -f /Users/longtaoge/Downloads/hotfix_demo/patchtool_demo/hotfix_demo-new.apk -wp /Users/longtaoge/Downloads/hotfix_demo/patchtool_demo/patch_out -k /Users/longtaoge/Downloads/hotfix_demo/demo.jks  -p test123 -a test123 -e test123
+
+
+ java -jar BCFixPatchTools-1.3.0.jar -c patch -s /Users/longtaoge/AndroidApp/tinkerDemo/patchtool_demo/hotfix_demo-old.apk -f /Users/longtaoge/AndroidApp/tinkerDemo/patchtool_demo/hotfix_demo-new.apk -wp /Users/longtaoge/AndroidApp/tinkerDemo/patchtool_demo/patch_out -k /Users/longtaoge/AndroidApp/tinkerDemo/hotfixdemo/demo.jks  -p test123 -a test123 -e test123

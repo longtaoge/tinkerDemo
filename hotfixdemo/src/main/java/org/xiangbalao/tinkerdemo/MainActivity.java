@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         initView();
         // 修复BUG
-          contentMain.setBackgroundResource(R.mipmap.rooster);
+        //  contentMain.setBackgroundResource(R.mipmap.rooster);
 
         initHotfix();
     }

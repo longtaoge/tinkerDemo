@@ -22,7 +22,7 @@ public class ApplicationLike extends Application {
     }
 
     private void initApp() {
-        this.appId = ""; //替换掉自己应用的appId  83914-1    69921-1
+        this.appId = "83914-1"; //替换掉自己应用的appId  83914-1    69921-1
         try {
             this.appVersion = this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionName;
         } catch (Exception e) {

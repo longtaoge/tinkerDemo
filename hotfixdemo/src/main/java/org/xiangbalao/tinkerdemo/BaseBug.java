@@ -13,10 +13,10 @@ public class BaseBug {
     public static void test(Context context) {
 
 
-        //   Toast.makeText(context.getApplicationContext(), "这是一只孔雀", Toast.LENGTH_SHORT).show();
+         Toast.makeText(context.getApplicationContext(), "这是一只孔雀", Toast.LENGTH_SHORT).show();
 
 
-        Toast.makeText(context.getApplicationContext(), "这是一只公鸡", Toast.LENGTH_SHORT).show();
+        //   Toast.makeText(context.getApplicationContext(), "这是一只公鸡", Toast.LENGTH_SHORT).show();
 
     }
 }
