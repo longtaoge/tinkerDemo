@@ -24,16 +24,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.taobao.hotfix.HotFixManager;
-import com.taobao.hotfix.PatchLoadStatusListener;
 import com.taobao.hotfix.demo.R;
-
-import org.xiangbalao.tinkerdemo.app.ApplicationLike;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
 
     private static final int REQUEST_EXTERNAL_STORAGE_PERMISSION = 0;
 
@@ -43,6 +42,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         initView();
         // 修复BUG 淘宝 hotfix 暂不支持
         //  contentMain.setBackgroundResource(R.mipmap.rooster);
@@ -60,8 +61,6 @@ public class MainActivity extends AppCompatActivity
         contentMain = (RelativeLayout) findViewById(R.id.content_main);
 
 
-
-
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -76,7 +75,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  drawer.openDrawer(GravityCompat.START);
+                //  drawer.openDrawer(GravityCompat.START);
 
                 BaseBug.test(MainActivity.this);
 
@@ -102,6 +101,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_loadPatch) {
+
+            requestExternalStoragePermission();
             //加载补丁
             HotFixManager.getInstance().queryNewHotPatch();
         } else if (id == R.id.nav_loadLibrary) {
@@ -186,22 +187,9 @@ public class MainActivity extends AppCompatActivity
      * 为了测试的方便, initialize放在activity中, 但是实际上initialize应该放在Application的onCreate方法中, 需要尽可能早的做初始化.
      */
     private void initHotfix() {
-        HotFixManager.getInstance().initialize(this.getApplication(), ApplicationLike.appVersion, ApplicationLike.appId, true, new PatchLoadStatusListener() {
-            @Override
-            public void onload(final int mode, final int code, final String info, final int handlePatchVersion) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        StringBuilder stringBuilder = new StringBuilder();
-                        stringBuilder.append("Mode:").append(mode).append(" Code:").append(code).append(" Info:").append(info).append(" HandlePatchVersion:").append(handlePatchVersion);
-                        showInfo(stringBuilder.toString());
-                    }
-                });
-            }
-        });
-        if (Build.VERSION.SDK_INT >= 23) {
-            requestExternalStoragePermission();
-        }
+
+
+
     }
 
 
@@ -209,10 +197,32 @@ public class MainActivity extends AppCompatActivity
      * 如果本地补丁放在了外部存储卡中, 6.0以上需要申请读外部存储卡权限才能够使用. 应用内部存储则不受影响
      */
     private void requestExternalStoragePermission() {
+
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            requestExternalStoragePermission();
+        }
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     REQUEST_EXTERNAL_STORAGE_PERMISSION);
+        }
+    }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_EXTERNAL_STORAGE_PERMISSION:
+                if (grantResults.length <= 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+
+                    Toast.makeText(getApplicationContext(),"local external storage patch is invalid as not read external storage permission",Toast.LENGTH_LONG).show();
+
+                }
+                break;
+            default:
         }
     }
 
