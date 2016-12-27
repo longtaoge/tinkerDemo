@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        // 修复BUG
+        // 修复BUG 淘宝 hotfix 暂不支持
         //  contentMain.setBackgroundResource(R.mipmap.rooster);
 
         initHotfix();
@@ -118,8 +118,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_info) {
 
-
-            openBrowser(getString(R.string.tinker));
+            //百川产品要登陆才能看到 尚不完善
+            openBrowser("http://baichuan.taobao.com");
 
 
         } else if (id == R.id.nav_share) {
