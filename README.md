@@ -20,13 +20,10 @@
 ### 2 修改 tinkerpatch.gradle 中的 appKey 为自己应用的key 
 
 
-
    appKey = "9e4dd618099f64c7"    //  http://tinkerpatch.com 上注册的key 
 
 
-
-
-### 1 调用 assembleRelease 编译，我们会将编译过的包保存在build/bakApk中。然后我们将它安装到手机，我们发现APP出现了BUG,公鸡下面的名字写成了孔雀 点击红色按钮，可以看到补丁并没有加载.
+### 3 调用 assembleRelease 编译，我们会将编译过的包保存在build/bakApk中。然后我们将它安装到手机，我们发现APP出现了BUG,公鸡下面的名字写成了孔雀 点击红色按钮，可以看到补丁并没有加载.
 
 
 ![](https://github.com/longtaoge/tinkerDemo/blob/master/image/tinkerpatch_ar.png)
@@ -36,7 +33,7 @@
 
 
 
-### 2 修改代码，将MainActivity中  //  contentMain.setBackgroundResource(R.mipmap.rooster); 打开。然后我们需要修改build.gradle中的参数，将步骤一编译保存的安装包路径拷贝到tinkerPatch中的oldApk参数中。
+### 4 修改代码，将MainActivity中  //  contentMain.setBackgroundResource(R.mipmap.rooster); 打开。然后我们需要修改build.gradle中的参数，将步骤一编译保存的安装包路径拷贝到tinkerPatch中的oldApk参数中。
 
 ![](https://github.com/longtaoge/tinkerDemo/blob/master/app/src/main/res/drawable/tinker8.png)
 
@@ -46,7 +43,7 @@
 
 
 
-### 3调 tinkerPatchRelease, 补丁包与相关日志会保存在/build/outputs/tinkerPatch/。然后我们将patch_signed_7zip.apk 上传到 TinkerPatch 后台
+### 5 调 tinkerPatchRelease, 补丁包与相关日志会保存在/build/outputs/tinkerPatch/。然后我们将patch_signed_7zip.apk 上传到 TinkerPatch 后台
 
 
 
@@ -54,17 +51,19 @@
 
 ![](https://github.com/longtaoge/tinkerDemo/blob/master/image/thinkerpatch_release.png)
 
-![](https://github.com/longtaoge/tinkerDemo/blob/master/image/tinkerpatch.png)
+![](https://github.com/longtaoge/tinkerDemo/blob/master/image/tinkerpatch_zip.png)
+
+![](https://github.com/longtaoge/tinkerDemo/blob/master/image/pach_publish.png)
 
 
 
 
-### 4 点击加载补丁菜单,然后锁屏或者点击重启按钮 
+### 6 点击加载补丁菜单,然后锁屏或者点击重启按钮 
 
 ![](https://github.com/longtaoge/tinkerDemo/blob/master/image/XLB20161228230100.jpg)
 
 
-### 5 我们可以看到公鸡的名字已经修复了，同时点击红色按钮，显示补丁包的确已经加载成功了。 
+### 7 我们可以看到公鸡的名字已经修复了，同时点击红色按钮，显示补丁包的确已经加载成功了。 
 
 ![](https://github.com/longtaoge/tinkerDemo/blob/master/image/XLB20161228230516.jpg)
 
