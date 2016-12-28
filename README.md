@@ -1,22 +1,38 @@
 # tinkerDemo
 本项目是 tinker 热补丁修复 示例
 
-本例完全参照 [https://github.com/Tencent/tinker/wiki/Tinker](https://github.com/Tencent/tinker/wiki/Tinker-%E6%8E%A5%E5%85%A5%E6%8C%87%E5%8D%97)
+本例完全参照 [http://tinkerpatch.com/Docs/intro](http://tinkerpatch.com/Docs/intro)
+以及 [https://github.com/TinkerPatch](https://github.com/TinkerPatch)
+
+整理实现
 
 是tinker 初学者的练习参考项目
 
 使用方法:
 
 
-
-### 1 调用assembleDebug编译，我们会将编译过的包保存在build/bakApk中。然后我们将它安装到手机，我们发现APP出现了BUG,公鸡下面的名字写成了孔雀 点击红色按钮，可以看到补丁并没有加载.
-
-
-![](https://github.com/longtaoge/tinkerDemo/blob/master/app/src/main/res/drawable/tinker11.png)
+### 1 在 http://tinkerpatch.com 上注册应用并添加应用 
 
 
+![](https://github.com/longtaoge/tinkerDemo/blob/master/image/tinkerpatch.png)
 
-![](https://github.com/longtaoge/tinkerDemo/blob/master/app/src/main/res/drawable/tinker6.jpg)
+
+### 2 修改 tinkerpatch.gradle 中的 appKey 为自己应用的key 
+
+
+
+   appKey = "9e4dd618099f64c7"    //  http://tinkerpatch.com 上注册的key 
+
+
+
+
+### 1 调用 assembleRelease 编译，我们会将编译过的包保存在build/bakApk中。然后我们将它安装到手机，我们发现APP出现了BUG,公鸡下面的名字写成了孔雀 点击红色按钮，可以看到补丁并没有加载.
+
+
+![](https://github.com/longtaoge/tinkerDemo/blob/master/image/tinkerpatch_ar.png)
+
+
+![](https://github.com/longtaoge/tinkerDemo/blob/master/image/XLB20161228230051.jpg)
 
 
 
@@ -25,36 +41,32 @@
 ![](https://github.com/longtaoge/tinkerDemo/blob/master/app/src/main/res/drawable/tinker8.png)
 
 
-![](https://github.com/longtaoge/tinkerDemo/blob/master/app/src/main/res/drawable/tinker9.png)
+![](https://github.com/longtaoge/tinkerDemo/blob/master/image/tinkerpatch_copy.png)
 
 
 
 
-### 3调 用tinkerPatchDebug, 补丁包与相关日志会保存在/build/outputs/tinkerPatch/。然后我们将patch_signed_7zip.apk推送到手机的sdcard中。
+### 3调 tinkerPatchRelease, 补丁包与相关日志会保存在/build/outputs/tinkerPatch/。然后我们将patch_signed_7zip.apk 上传到 TinkerPatch 后台
 
 
 
-    adb push ./app/build/outputs/tinkerPatch/debug/patch_signed_7zip.apk /storage/sdcard0/
+   
+
+![](https://github.com/longtaoge/tinkerDemo/blob/master/image/thinkerpatch_release.png)
+
+![](https://github.com/longtaoge/tinkerDemo/blob/master/image/tinkerpatch.png)
 
 
-![](https://github.com/longtaoge/tinkerDemo/blob/master/app/src/main/res/drawable/tinker4_1.png)
-
-![](https://github.com/longtaoge/tinkerDemo/blob/master/app/src/main/res/drawable/tinker4_2.png)
 
 
+### 4 点击加载补丁菜单,然后锁屏或者点击重启按钮 
 
-
-### 4 点击加载补丁菜单, 如果看到patch success, please restart process的toast，即可锁屏或者点击重启按钮 
-
-![](https://github.com/longtaoge/tinkerDemo/blob/master/app/src/main/res/drawable/tinker3.jpg)
-
-![](https://github.com/longtaoge/tinkerDemo/blob/master/app/src/main/res/drawable/tinker31.jpg)
-
+![](https://github.com/longtaoge/tinkerDemo/blob/master/image/XLB20161228230100.jpg)
 
 
 ### 5 我们可以看到公鸡的名字已经修复了，同时点击红色按钮，显示补丁包的确已经加载成功了。 
 
-![](https://github.com/longtaoge/tinkerDemo/blob/master/app/src/main/res/drawable/tinker5.jpg)
+![](https://github.com/longtaoge/tinkerDemo/blob/master/image/XLB20161228230516.jpg)
 
 
 
