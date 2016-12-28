@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity
             TinkerPatch.with().fetchDynamicConfig(new ConfigRequestCallback() {
                 @Override
                 public void onSuccess(HashMap<String, String> configs) {
-                    //TODO 根据在线参数决定是否加载补丁
+                    // 根据在线参数决定是否加载补丁
                     if (configs != null && "longtaoge".equals(configs.get("id"))) {
                         // 配置不为空且 id 为"longtaoge" 时才加载补丁
                         //加载补丁
