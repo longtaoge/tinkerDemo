@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity
         initView();
 
         //TODO 修复BUG
-        //  contentMain.setBackgroundResource(R.mipmap.rooster);
+        // contentMain.setBackgroundResource(R.mipmap.rooster);
 
     }
 
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
 
                 showInfo(MainActivity.this);
-                drawer.openDrawer(Gravity.LEFT);
+
 
             }
         });
@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity
     public boolean showInfo(Context context) {
         // add more Build Info
         final StringBuilder sb = new StringBuilder();
+        sb.append("\n");
         Tinker tinker = Tinker.with(getApplicationContext());
         if (tinker.isTinkerLoaded()) {
             sb.append("补丁已加载");

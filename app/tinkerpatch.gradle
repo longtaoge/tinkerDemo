@@ -12,7 +12,7 @@ tinkerpatchSupport {
     tinkerEnable = true
     reflectApplication = true
 
-    appKey = "25281c96ab9cf536"    //f828475486f91936
+    appKey = "9e4dd618099f64c7"    //f828475486f91936
     appVersion = "1.0.0"
 
     autoBackupApkPath = "${bakPath}"

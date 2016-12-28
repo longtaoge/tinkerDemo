@@ -10,12 +10,12 @@ android {
         minSdkVersion 10 // 最低版本不能低于10
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
 
     }
 
-   // 签名信息 发布和debug 用同一签名
+    // 签名信息 发布和debug 用同一签名
     signingConfigs {
         release {
             storeFile file("./keystore/release.keystore")
@@ -52,10 +52,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.2.0'
     compile 'com.android.support:design:23.2.0'
 
-
-
-    // 以下为重点  配置 tinker  gradle.properties  中配置
-    compile("com.tinkerpatch.sdk:tinkerpatch-android-sdk:${TINKERPATCH_VERSION}") { changing = true }
+    // 以下为重点  配置 tinker  gradle.properties  中配置  TINKERPATCH_VERSION  gradle.properties 配置
+    compile("com.tinkerpatch.sdk:tinkerpatch-android-sdk:${TINKERPATCH_VERSION}") {
+        changing = true
+    }
     // 允许多DEX
     compile "com.android.support:multidex:1.0.1"
 
