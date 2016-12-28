@@ -58,7 +58,7 @@ public class MyApplication extends Application {
 
 
     /**
-     * 配置用例
+     *  配置用例
      * 在这里给出TinkerPatch的所有接口解释
      * 更详细的解释请参考:http://tinkerpatch.com/Docs/api
      */
