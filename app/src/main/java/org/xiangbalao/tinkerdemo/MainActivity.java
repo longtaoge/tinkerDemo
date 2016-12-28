@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,7 +13,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -24,19 +22,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tencent.tinker.lib.tinker.Tinker;
-import com.tencent.tinker.lib.tinker.TinkerInstaller;
-import com.tencent.tinker.loader.shareutil.ShareConstants;
+import com.tencent.tinker.lib.util.TinkerLog;
 import com.tencent.tinker.loader.shareutil.ShareTinkerInternals;
+import com.tinkerpatch.sdk.TinkerPatch;
+import com.tinkerpatch.sdk.server.callback.ConfigRequestCallback;
 
-import org.xiangbalao.tinkerdemo.tinker.constant.BaseBuildInfo;
-import org.xiangbalao.tinkerdemo.tinker.constant.BuildInfo;
-import org.xiangbalao.tinkerdemo.tinker.utils.Utils;
+import java.util.HashMap;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
     private RelativeLayout contentMain;
+    private String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         initView();
 
-        // 修复BUG
+        //TODO 修复BUG
         //  contentMain.setBackgroundResource(R.mipmap.rooster);
 
     }
@@ -56,10 +55,15 @@ public class MainActivity extends AppCompatActivity
     private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
         contentMain = (RelativeLayout) findViewById(R.id.content_main);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -67,19 +71,12 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
 
                 showInfo(MainActivity.this);
-
+                drawer.openDrawer(Gravity.LEFT);
 
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -93,7 +90,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
@@ -101,25 +97,44 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_loadPatch) {
             //加载补丁
-            TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), Environment.getExternalStorageDirectory().getAbsolutePath() + "/patch_signed_7zip.apk");
-
+            TinkerPatch.with().fetchPatchUpdate(true);
 
         } else if (id == R.id.nav_loadLibrary) {
-            //加载 SO
-            TinkerInstaller.loadLibraryFromTinker(getApplicationContext(), "armeabi", "libstlport_shared");
+            //根据在线参数加载补丁
+            TinkerPatch.with().fetchDynamicConfig(new ConfigRequestCallback() {
+                @Override
+                public void onSuccess(HashMap<String, String> configs) {
+                    //TODO 根据在线参数决定是否加载补丁
+                    if (configs != null && "longtaoge".equals(configs.get("id"))) {
+                        // 配置不为空且 id 为"longtaoge" 时才加载补丁
+                        //加载补丁
+                        TinkerPatch.with().fetchPatchUpdate(true);
+
+                    }
+
+                    TinkerLog.w(TAG, "request config success, config:" + configs);
+
+                }
+
+                @Override
+                public void onFail(Exception e) {
+                    TinkerLog.w(TAG, "request config failed, exception:" + e);
+                }
+            }, true);
 
         } else if (id == R.id.nav_cleanPatch) {
             //清除补丁
-            Tinker.with(getApplicationContext()).cleanPatch();
+            TinkerPatch.with().cleanPatch();
 
         } else if (id == R.id.nav_killSelf) {
             //重启应用
+            ShareTinkerInternals.killAllOtherProcess(getApplicationContext());
             android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(0);
 
         } else if (id == R.id.nav_info) {
 
-
+            //打开浏览器
             openBrowser(getString(R.string.tinker));
 
 
@@ -166,21 +181,10 @@ public class MainActivity extends AppCompatActivity
         final StringBuilder sb = new StringBuilder();
         Tinker tinker = Tinker.with(getApplicationContext());
         if (tinker.isTinkerLoaded()) {
-            sb.append(String.format("[补丁已加载] \n"));
-            sb.append(String.format("[编译版本号] %s \n", BuildInfo.CLIENTVERSION));
-            sb.append(String.format("[编译 信息] %s \n", BuildInfo.MESSAGE));
-            sb.append(String.format("[TINKER_ID] %s \n", tinker.getTinkerLoadResultIfPresent().getPackageConfigByName(ShareConstants.TINKER_ID)));
-            sb.append(String.format("[REAL TINKER_ID] %s \n", tinker.getTinkerLoadResultIfPresent().getTinkerID()));
-            sb.append(String.format("[包配置的补丁信息] %s \n", tinker.getTinkerLoadResultIfPresent().getPackageConfigByName("patchMessage")));
-            sb.append(String.format("[TINKER_ID Rom Space] %d k \n", tinker.getTinkerRomSpace()));
-
+            sb.append("补丁已加载");
         } else {
-            sb.append(String.format("[补丁未加载] \n"));
-            sb.append(String.format("[编译版本号] %s \n", BuildInfo.CLIENTVERSION));
-            sb.append(String.format("[编译信息] %s \n", BuildInfo.MESSAGE));
-            sb.append(String.format("[TINKER_ID] %s \n", ShareTinkerInternals.getManifestTinkerID(getApplicationContext())));
+            sb.append("补丁未加载");
         }
-        sb.append(String.format("[提示信息] %s \n", BaseBuildInfo.TEST_MESSAGE));
 
         final TextView v = new TextView(context);
         v.setText(sb);
@@ -201,19 +205,18 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     @Override
     protected void onResume() {
 
 
         super.onResume();
-        Utils.setBackground(false);
+
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Utils.setBackground(true);
+
     }
 }
